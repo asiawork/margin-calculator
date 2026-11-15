@@ -159,7 +159,7 @@
     word-break: break-word;
   }
   .result-value small {
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 600;
   }
   .result-sub {
@@ -313,12 +313,13 @@
     var profit = sell - cost;
     var loss = profit < 0;
     $('p-label').textContent = loss ? 'ขาดทุน' : 'กำไร';
-    $('p-value').innerHTML = fmt(Math.abs(profit)) + ' <small>บาท</small>';
 
     if (cost > 0) {
       var pct = Math.abs(profit) / cost * 100;
-      $('p-sub').textContent = (loss ? 'ขาดทุน ' : 'กำไร ') + fmtPct(pct) + '% ของทุน';
+      $('p-value').innerHTML = fmtPct(pct) + '<small>%</small>';
+      $('p-sub').textContent = 'เป็นเงิน ' + fmt(Math.abs(profit)) + ' บาท';
     } else {
+      $('p-value').innerHTML = fmt(Math.abs(profit)) + ' <small>บาท</small>';
       $('p-sub').innerHTML = '&nbsp;';
     }
     setResult(box, loss ? 'bad' : 'good');
