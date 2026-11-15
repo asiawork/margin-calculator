@@ -1,0 +1,13 @@
+{
+  "name": "ร้านรองเท้าแม่คุณ",
+  "short_name": "คิดกำไร",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f7fd",
+  "theme_color": "#1d5fa8",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
