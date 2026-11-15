@@ -53,29 +53,7 @@
     color: var(--blue-dark);
   }
 
-  .tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .tabs button {
-    font: inherit;
-    font-size: clamp(22px, 3.2vh, 26px);
-    font-weight: 700;
-    border: 0;
-    border-radius: 16px;
-    padding: clamp(11px, 1.9vh, 17px) 4px;
-    background: #e1e9f3;
-    color: var(--muted);
-    cursor: pointer;
-  }
-  .tabs button[aria-selected="true"] {
-    background: var(--blue);
-    color: #fff;
-  }
-
-  .panel { display: none; flex: 1; flex-direction: column; gap: clamp(8px, 1.6vh, 14px); }
-  .panel.active { display: flex; }
+  .panel { flex: 1; display: flex; flex-direction: column; gap: clamp(8px, 1.6vh, 14px); }
 
   .field { display: block; }
   .field-name {
@@ -171,13 +149,8 @@
 <main>
   <h1>ร้านรองเท้าแม่คุณ</h1>
 
-  <div class="tabs" role="tablist">
-    <button role="tab" id="tab-profit" aria-controls="panel-profit" aria-selected="true">หากำไร</button>
-    <button role="tab" id="tab-price" aria-controls="panel-price" aria-selected="false">ตั้งราคาขาย</button>
-  </div>
-
-  <!-- แบบที่ 1: รู้ราคาขายกับทุน หากำไรเป็น % -->
-  <section class="panel active" id="panel-profit" role="tabpanel" aria-labelledby="tab-profit">
+  <!-- รู้ราคาทุนกับราคาขาย หากำไรเป็น % -->
+  <section class="panel">
     <label class="field">
       <span class="field-name">ราคาทุน</span>
       <span class="input-wrap">
@@ -202,40 +175,10 @@
     <button class="clear" data-clear="p-cost p-sell">เริ่มใหม่</button>
   </section>
 
-  <!-- แบบที่ 2: รู้ทุนกับ % กำไรที่อยากได้ หาราคาขาย -->
-  <section class="panel" id="panel-price" role="tabpanel" aria-labelledby="tab-price">
-    <label class="field">
-      <span class="field-name">ราคาทุน</span>
-      <span class="input-wrap">
-        <input id="s-cost" type="text" inputmode="decimal" enterkeyhint="next" autocomplete="off" placeholder="0">
-        <span class="unit">บาท</span>
-      </span>
-    </label>
-    <label class="field">
-      <span class="field-name">อยากได้กำไร</span>
-      <span class="input-wrap">
-        <input id="s-want" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0">
-        <span class="unit">%</span>
-      </span>
-    </label>
-
-    <div class="result" id="s-result" aria-live="polite">
-      <div class="result-label">ควรขาย</div>
-      <div class="result-value" id="s-value">–</div>
-      <div class="result-sub" id="s-sub"></div>
-    </div>
-
-    <button class="clear" data-clear="s-cost s-want">เริ่มใหม่</button>
-  </section>
 </main>
 
 <script>
 (function () {
-  var store = {
-    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  };
-
   function $(id) { return document.getElementById(id); }
 
   function num(el) {
@@ -297,43 +240,8 @@
     setResult(box, loss ? 'bad' : 'good');
   }
 
-  /* ---------- ตั้งราคาขาย ---------- */
-  function calcPrice() {
-    var cost = num($('s-cost'));
-    var want = num($('s-want'));
-    var box = $('s-result');
-
-    if (cost === null || want === null) {
-      $('s-value').textContent = '–';
-      $('s-sub').textContent = '';
-      setResult(box, null);
-      return;
-    }
-
-    var profit = cost * want / 100;
-    $('s-value').innerHTML = fmt(cost + profit) + ' <small>บาท</small>';
-    $('s-sub').textContent = 'ได้กำไร ' + fmt(profit) + ' บาท';
-    setResult(box, 'good');
-  }
-
-  /* ---------- แท็บ ---------- */
-  var tabs = { profit: $('tab-profit'), price: $('tab-price') };
-  var panels = { profit: $('panel-profit'), price: $('panel-price') };
-
-  function showTab(name) {
-    Object.keys(tabs).forEach(function (k) {
-      var on = k === name;
-      tabs[k].setAttribute('aria-selected', on ? 'true' : 'false');
-      panels[k].classList.toggle('active', on);
-    });
-    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
-    store.set('mc-tab', name);
-  }
-  tabs.profit.addEventListener('click', function () { showTab('profit'); });
-  tabs.price.addEventListener('click', function () { showTab('price'); });
-
   /* ---------- ช่องกรอก ---------- */
-  var pairs = [['p-cost', 'p-sell', calcProfit], ['s-cost', 's-want', calcPrice]];
+  var pairs = [['p-cost', 'p-sell', calcProfit]];
   pairs.forEach(function (pair) {
     var first = $(pair[0]), second = $(pair[1]), calc = pair[2];
     [first, second].forEach(function (el) {
@@ -361,11 +269,9 @@
     b.addEventListener('click', function () {
       b.dataset.clear.split(' ').forEach(function (id) { $(id).value = ''; });
       calcProfit();
-      calcPrice();
     });
   });
 
-  showTab(store.get('mc-tab') === 'price' ? 'price' : 'profit');
 })();
 </script>
 </body>
