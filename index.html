@@ -2,89 +2,87 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1f6f5c">
-<title>คิดกำไรร้านรองเท้า</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d5fa8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="คิดกำไร">
+<meta name="application-name" content="คิดกำไร">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-180.png">
+<title>ร้านรองเท้าแม่คุณ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #1f6f5c;
-    --green-soft: #e3f1ec;
+    --blue: #1d5fa8;
+    --blue-dark: #164a84;
+    --blue-soft: #e5effa;
+    --sky: #f2f7fd;
     --red: #c0392b;
-    --red-soft: #fbe9e7;
-    --ink: #1c1c1c;
-    --muted: #5f6b68;
-    --line: #cfd8d5;
-    --bg: #f6f8f7;
+    --red-soft: #fdecea;
+    --ink: #17202b;
+    --muted: #5b6878;
+    --line: #c9d6e5;
   }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
   body {
     margin: 0;
     font-family: "Sarabun", system-ui, sans-serif;
-    font-size: 22px;
     color: var(--ink);
-    background: var(--bg);
-    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    background: var(--sky);
+    -webkit-text-size-adjust: 100%;
   }
   main {
-    max-width: 520px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 20px 18px 40px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.6vh, 14px);
+    padding: calc(env(safe-area-inset-top) + clamp(10px, 2vh, 18px)) 16px calc(env(safe-area-inset-bottom) + 14px);
   }
   h1 {
-    font-size: 30px;
-    margin: 4px 0 18px;
+    margin: 0;
     text-align: center;
+    font-size: clamp(22px, 3.4vh, 28px);
+    font-weight: 700;
+    color: var(--blue-dark);
   }
 
   .tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    background: #e4e9e7;
-    padding: 6px;
-    border-radius: 18px;
-    margin-bottom: 22px;
   }
   .tabs button {
     font: inherit;
-    font-size: 23px;
-    font-weight: 600;
-    border: 0;
-    border-radius: 14px;
-    padding: 16px 6px;
-    background: transparent;
-    color: var(--muted);
+    font-size: clamp(22px, 3.2vh, 26px);
+    font-weight: 700;
+    border: 3px solid var(--blue);
+    border-radius: 16px;
+    padding: clamp(8px, 1.5vh, 14px) 4px;
+    background: #fff;
+    color: var(--blue);
     cursor: pointer;
   }
   .tabs button[aria-selected="true"] {
-    background: #fff;
-    color: var(--green);
-    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    background: var(--blue);
+    color: #fff;
   }
 
-  .panel { display: none; }
-  .panel.active { display: block; }
+  .panel { display: none; flex: 1; flex-direction: column; gap: clamp(8px, 1.6vh, 14px); }
+  .panel.active { display: flex; }
 
-  .card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 22px 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.05);
-  }
-
-  .field {
-    display: block;
-    margin-bottom: 22px;
-  }
+  .field { display: block; }
   .field-name {
     display: block;
-    font-weight: 600;
-    font-size: 24px;
-    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: clamp(21px, 3vh, 24px);
+    margin-bottom: 4px;
   }
   .input-wrap {
     display: flex;
@@ -94,137 +92,140 @@
     background: #fff;
     padding: 0 16px;
   }
-  .input-wrap:focus-within { border-color: var(--green); }
+  .input-wrap:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(29, 95, 168, .15);
+  }
   .input-wrap input {
     flex: 1;
     min-width: 0;
     font: inherit;
-    font-size: 40px;
+    font-size: clamp(32px, 5vh, 42px);
     font-weight: 700;
     border: 0;
     outline: 0;
-    padding: 12px 0;
+    padding: clamp(4px, 0.8vh, 8px) 0;
     background: transparent;
     color: var(--ink);
   }
-  .input-wrap input::placeholder { color: #c3cbc8; font-weight: 400; }
+  .input-wrap input::placeholder { color: #bccada; font-weight: 400; }
   .unit {
-    font-size: 24px;
+    font-size: clamp(22px, 3vh, 26px);
+    font-weight: 600;
     color: var(--muted);
     margin-left: 10px;
   }
 
   .result {
-    margin-top: 6px;
-    border-radius: 18px;
-    padding: 20px;
+    flex: 1;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 10px 16px;
     text-align: center;
-    background: #eef1f0;
+    background: #fff;
+    border: 3px dashed var(--line);
     color: var(--muted);
   }
-  .result.good { background: var(--green-soft); color: var(--green); }
-  .result.bad { background: var(--red-soft); color: var(--red); }
+  .result.good { background: var(--blue-soft); border: 3px solid var(--blue); color: var(--blue-dark); }
+  .result.bad { background: var(--red-soft); border: 3px solid var(--red); color: var(--red); }
   .result-label {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: clamp(22px, 3.2vh, 26px);
+    font-weight: 700;
   }
   .result-value {
-    font-size: 60px;
+    font-size: clamp(48px, 8.5vh, 68px);
     font-weight: 700;
-    line-height: 1.15;
-    margin: 4px 0;
+    line-height: 1.1;
     word-break: break-word;
   }
   .result-value small {
-    font-size: 36px;
-    font-weight: 600;
+    font-size: .55em;
+    font-weight: 700;
   }
   .result-sub {
-    font-size: 22px;
+    font-size: clamp(20px, 2.9vh, 24px);
     color: var(--ink);
+    min-height: 1.3em;
   }
 
   .clear {
     display: block;
     width: 100%;
-    margin-top: 18px;
     font: inherit;
-    font-size: 24px;
-    font-weight: 600;
-    padding: 16px;
+    font-size: clamp(22px, 3vh, 24px);
+    font-weight: 700;
+    padding: clamp(8px, 1.4vh, 12px);
     border-radius: 16px;
     border: 3px solid var(--line);
     background: #fff;
     color: var(--ink);
     cursor: pointer;
   }
-  .clear:active { background: #eef1f0; }
+  .clear:active { background: var(--blue-soft); }
 </style>
 </head>
 <body>
 <main>
-  <h1>คิดกำไรร้านรองเท้า</h1>
+  <h1>ร้านรองเท้าแม่คุณ</h1>
 
   <div class="tabs" role="tablist">
     <button role="tab" id="tab-profit" aria-controls="panel-profit" aria-selected="true">หากำไร</button>
     <button role="tab" id="tab-price" aria-controls="panel-price" aria-selected="false">ตั้งราคาขาย</button>
   </div>
 
-  <!-- แบบที่ 1: รู้ราคาขายกับทุน หากำไร -->
+  <!-- แบบที่ 1: รู้ราคาขายกับทุน หากำไรเป็น % -->
   <section class="panel active" id="panel-profit" role="tabpanel" aria-labelledby="tab-profit">
-    <div class="card">
-      <label class="field">
-        <span class="field-name">ราคาขาย</span>
-        <span class="input-wrap">
-          <input id="p-sell" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-          <span class="unit">บาท</span>
-        </span>
-      </label>
-      <label class="field">
-        <span class="field-name">ราคาทุน</span>
-        <span class="input-wrap">
-          <input id="p-cost" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-          <span class="unit">บาท</span>
-        </span>
-      </label>
+    <label class="field">
+      <span class="field-name">ราคาทุน</span>
+      <span class="input-wrap">
+        <input id="p-cost" type="text" inputmode="decimal" enterkeyhint="next" autocomplete="off" placeholder="0">
+        <span class="unit">บาท</span>
+      </span>
+    </label>
+    <label class="field">
+      <span class="field-name">ราคาขาย</span>
+      <span class="input-wrap">
+        <input id="p-sell" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0">
+        <span class="unit">บาท</span>
+      </span>
+    </label>
 
-      <div class="result" id="p-result" aria-live="polite">
-        <div class="result-label" id="p-label">กำไร</div>
-        <div class="result-value" id="p-value">–</div>
-        <div class="result-sub" id="p-sub">&nbsp;</div>
-      </div>
-
-      <button class="clear" data-clear="p-sell p-cost">เริ่มใหม่</button>
+    <div class="result" id="p-result" aria-live="polite">
+      <div class="result-label" id="p-label">กำไร</div>
+      <div class="result-value" id="p-value">–</div>
+      <div class="result-sub" id="p-sub"></div>
     </div>
+
+    <button class="clear" data-clear="p-cost p-sell">เริ่มใหม่</button>
   </section>
 
-  <!-- แบบที่ 2: รู้ทุนกับกำไรที่อยากได้ หาราคาขาย -->
+  <!-- แบบที่ 2: รู้ทุนกับ % กำไรที่อยากได้ หาราคาขาย -->
   <section class="panel" id="panel-price" role="tabpanel" aria-labelledby="tab-price">
-    <div class="card">
-      <label class="field">
-        <span class="field-name">ราคาทุน</span>
-        <span class="input-wrap">
-          <input id="s-cost" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-          <span class="unit">บาท</span>
-        </span>
-      </label>
+    <label class="field">
+      <span class="field-name">ราคาทุน</span>
+      <span class="input-wrap">
+        <input id="s-cost" type="text" inputmode="decimal" enterkeyhint="next" autocomplete="off" placeholder="0">
+        <span class="unit">บาท</span>
+      </span>
+    </label>
+    <label class="field">
+      <span class="field-name">อยากได้กำไร</span>
+      <span class="input-wrap">
+        <input id="s-want" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0">
+        <span class="unit">%</span>
+      </span>
+    </label>
 
-      <div class="field">
-        <span class="field-name">อยากได้กำไร</span>
-        <label class="input-wrap">
-          <input id="s-want" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="กำไรที่อยากได้">
-          <span class="unit">%</span>
-        </label>
-      </div>
-
-      <div class="result" id="s-result" aria-live="polite">
-        <div class="result-label">ควรขาย</div>
-        <div class="result-value" id="s-value">–</div>
-        <div class="result-sub" id="s-sub">&nbsp;</div>
-      </div>
-
-      <button class="clear" data-clear="s-cost s-want">เริ่มใหม่</button>
+    <div class="result" id="s-result" aria-live="polite">
+      <div class="result-label">ควรขาย</div>
+      <div class="result-value" id="s-value">–</div>
+      <div class="result-sub" id="s-sub"></div>
     </div>
+
+    <button class="clear" data-clear="s-cost s-want">เริ่มใหม่</button>
   </section>
 </main>
 
@@ -237,7 +238,6 @@
 
   function $(id) { return document.getElementById(id); }
 
-  // อ่านตัวเลข ยอมรับลูกน้ำและจุดทศนิยม
   function num(el) {
     var s = el.value.replace(/,/g, '').trim();
     if (s === '' || s === '.') return null;
@@ -245,16 +245,16 @@
     return isFinite(n) ? n : null;
   }
 
-  function fmtPct(n) {
-    return (Math.round(n * 10) / 10).toLocaleString('th-TH', { maximumFractionDigits: 1 });
-  }
-
   function fmt(n) {
     var r = Math.round(n * 100) / 100;
     return r.toLocaleString('th-TH', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   }
 
-  // กันพิมพ์ตัวอักษรอื่นนอกจากตัวเลข ลูกน้ำ และจุด
+  function fmtPct(n) {
+    return (Math.round(n * 10) / 10).toLocaleString('th-TH', { maximumFractionDigits: 1 });
+  }
+
+  // รับเฉพาะตัวเลข ลูกน้ำ และจุดทศนิยมจุดเดียว
   function sanitize(el) {
     var v = el.value.replace(/[^\d.,]/g, '');
     var firstDot = v.indexOf('.');
@@ -269,16 +269,16 @@
     if (state) box.classList.add(state);
   }
 
-  /* ---------- แบบที่ 1 ---------- */
+  /* ---------- หากำไร ---------- */
   function calcProfit() {
-    var sell = num($('p-sell'));
     var cost = num($('p-cost'));
+    var sell = num($('p-sell'));
     var box = $('p-result');
 
     if (sell === null || cost === null) {
       $('p-label').textContent = 'กำไร';
       $('p-value').textContent = '–';
-      $('p-sub').innerHTML = '&nbsp;';
+      $('p-sub').textContent = '';
       setResult(box, null);
       return;
     }
@@ -288,17 +288,16 @@
     $('p-label').textContent = loss ? 'ขาดทุน' : 'กำไร';
 
     if (cost > 0) {
-      var pct = Math.abs(profit) / cost * 100;
-      $('p-value').innerHTML = fmtPct(pct) + '<small>%</small>';
+      $('p-value').innerHTML = fmtPct(Math.abs(profit) / cost * 100) + '<small>%</small>';
       $('p-sub').textContent = 'เป็นเงิน ' + fmt(Math.abs(profit)) + ' บาท';
     } else {
       $('p-value').innerHTML = fmt(Math.abs(profit)) + ' <small>บาท</small>';
-      $('p-sub').innerHTML = '&nbsp;';
+      $('p-sub').textContent = '';
     }
     setResult(box, loss ? 'bad' : 'good');
   }
 
-  /* ---------- แบบที่ 2 ---------- */
+  /* ---------- ตั้งราคาขาย ---------- */
   function calcPrice() {
     var cost = num($('s-cost'));
     var want = num($('s-want'));
@@ -306,15 +305,13 @@
 
     if (cost === null || want === null) {
       $('s-value').textContent = '–';
-      $('s-sub').innerHTML = '&nbsp;';
+      $('s-sub').textContent = '';
       setResult(box, null);
       return;
     }
 
     var profit = cost * want / 100;
-    var price = cost + profit;
-
-    $('s-value').innerHTML = fmt(price) + ' <small>บาท</small>';
+    $('s-value').innerHTML = fmt(cost + profit) + ' <small>บาท</small>';
     $('s-sub').textContent = 'ได้กำไร ' + fmt(profit) + ' บาท';
     setResult(box, 'good');
   }
@@ -329,26 +326,42 @@
       tabs[k].setAttribute('aria-selected', on ? 'true' : 'false');
       panels[k].classList.toggle('active', on);
     });
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     store.set('mc-tab', name);
   }
   tabs.profit.addEventListener('click', function () { showTab('profit'); });
   tabs.price.addEventListener('click', function () { showTab('price'); });
 
   /* ---------- ช่องกรอก ---------- */
-  ['p-sell', 'p-cost'].forEach(function (id) {
-    $(id).addEventListener('input', function () { sanitize(this); calcProfit(); });
+  var pairs = [['p-cost', 'p-sell', calcProfit], ['s-cost', 's-want', calcPrice]];
+  pairs.forEach(function (pair) {
+    var first = $(pair[0]), second = $(pair[1]), calc = pair[2];
+    [first, second].forEach(function (el) {
+      el.addEventListener('input', function () { sanitize(el); calc(); });
+      // แตะช่องที่มีตัวเลขอยู่แล้ว เลือกทั้งหมดไว้ให้พิมพ์ทับได้เลย
+      el.addEventListener('focus', function () {
+        setTimeout(function () { try { el.setSelectionRange(0, el.value.length); } catch (e) {} }, 0);
+      });
+    });
+    first.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); second.focus(); }
+    });
+    second.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); second.blur(); }
+    });
   });
-  ['s-cost', 's-want'].forEach(function (id) {
-    $(id).addEventListener('input', function () { sanitize(this); calcPrice(); });
-  });
+
+  // แตะที่ว่างเพื่อเก็บแป้นพิมพ์
+  document.addEventListener('touchstart', function (e) {
+    var a = document.activeElement;
+    if (a && a.tagName === 'INPUT' && !e.target.closest('.input-wrap')) a.blur();
+  }, { passive: true });
 
   document.querySelectorAll('[data-clear]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var ids = b.dataset.clear.split(' ');
-      ids.forEach(function (id) { $(id).value = ''; });
+      b.dataset.clear.split(' ').forEach(function (id) { $(id).value = ''; });
       calcProfit();
       calcPrice();
-      $(ids[0]).focus();
     });
   });
 
