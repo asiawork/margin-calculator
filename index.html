@@ -149,7 +149,7 @@
 <main>
   <h1>ร้านรองเท้าแม่คุณ</h1>
 
-  <!-- รู้ราคาทุนกับราคาขาย หากำไรเป็น % -->
+  <!-- รู้ราคาทุนกับราคาขาย หากำไรเป็น % ของราคาขาย -->
   <section class="panel">
     <label class="field">
       <span class="field-name">ราคาทุน</span>
@@ -230,8 +230,8 @@
     var loss = profit < 0;
     $('p-label').textContent = loss ? 'ขาดทุน' : 'กำไร';
 
-    if (cost > 0) {
-      $('p-value').innerHTML = fmtPct(Math.abs(profit) / cost * 100) + '<small>%</small>';
+    if (sell > 0) {
+      $('p-value').innerHTML = fmtPct(Math.abs(profit) / sell * 100) + '<small>%</small>';
       $('p-sub').textContent = 'เป็นเงิน ' + fmt(Math.abs(profit)) + ' บาท';
     } else {
       $('p-value').innerHTML = fmt(Math.abs(profit)) + ' <small>บาท</small>';
