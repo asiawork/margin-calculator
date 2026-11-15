@@ -172,16 +172,16 @@
     width: 100%;
     margin-top: 18px;
     font: inherit;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
-    padding: 14px;
-    border-radius: 14px;
-    border: 0;
-    background: transparent;
-    color: var(--muted);
-    text-decoration: underline;
+    padding: 16px;
+    border-radius: 16px;
+    border: 3px solid var(--line);
+    background: #fff;
+    color: var(--ink);
     cursor: pointer;
   }
+  .clear:active { background: #eef1f0; }
 </style>
 </head>
 <body>
@@ -217,7 +217,7 @@
         <div class="result-sub" id="p-sub">&nbsp;</div>
       </div>
 
-      <button class="clear" data-clear="p-sell p-cost">ล้างตัวเลข</button>
+      <button class="clear" data-clear="p-sell p-cost">เริ่มใหม่</button>
     </div>
   </section>
 
@@ -250,7 +250,7 @@
         <div class="result-sub" id="s-sub">&nbsp;</div>
       </div>
 
-      <button class="clear" data-clear="s-cost s-want">ล้างตัวเลข</button>
+      <button class="clear" data-clear="s-cost s-want">เริ่มใหม่</button>
     </div>
   </section>
 </main>
