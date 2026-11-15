@@ -76,7 +76,7 @@
     box-shadow: 0 1px 4px rgba(0,0,0,.05);
   }
 
-  label.field {
+  .field {
     display: block;
     margin-bottom: 22px;
   }
@@ -112,29 +112,6 @@
     font-size: 24px;
     color: var(--muted);
     margin-left: 10px;
-  }
-
-  .unit-switch {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .unit-switch button {
-    font: inherit;
-    font-size: 22px;
-    font-weight: 600;
-    border: 3px solid var(--line);
-    border-radius: 14px;
-    background: #fff;
-    color: var(--muted);
-    padding: 10px 0;
-    cursor: pointer;
-  }
-  .unit-switch button[aria-pressed="true"] {
-    border-color: var(--green);
-    background: var(--green-soft);
-    color: var(--green);
   }
 
   .result {
@@ -234,13 +211,9 @@
 
       <div class="field">
         <span class="field-name">อยากได้กำไร</span>
-        <div class="unit-switch" role="group" aria-label="หน่วยกำไร">
-          <button type="button" data-unit="baht" aria-pressed="true">เป็นบาท</button>
-          <button type="button" data-unit="pct" aria-pressed="false">เป็น %</button>
-        </div>
         <label class="input-wrap">
           <input id="s-want" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="กำไรที่อยากได้">
-          <span class="unit" id="s-unit">บาท</span>
+          <span class="unit">%</span>
         </label>
       </div>
 
@@ -326,15 +299,6 @@
   }
 
   /* ---------- แบบที่ 2 ---------- */
-  var wantUnit = store.get('mc-unit') === 'pct' ? 'pct' : 'baht';
-
-  function applyUnit() {
-    document.querySelectorAll('.unit-switch button').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.dataset.unit === wantUnit ? 'true' : 'false');
-    });
-    $('s-unit').textContent = wantUnit === 'pct' ? '%' : 'บาท';
-  }
-
   function calcPrice() {
     var cost = num($('s-cost'));
     var want = num($('s-want'));
@@ -347,28 +311,13 @@
       return;
     }
 
-    var profit = wantUnit === 'pct' ? cost * want / 100 : want;
+    var profit = cost * want / 100;
     var price = cost + profit;
 
     $('s-value').innerHTML = fmt(price) + ' <small>บาท</small>';
-    if (wantUnit === 'pct') {
-      $('s-sub').textContent = 'ได้กำไร ' + fmt(profit) + ' บาท';
-    } else if (cost > 0) {
-      $('s-sub').textContent = 'กำไร ' + fmtPct(profit / cost * 100) + '% ของทุน';
-    } else {
-      $('s-sub').innerHTML = '&nbsp;';
-    }
+    $('s-sub').textContent = 'ได้กำไร ' + fmt(profit) + ' บาท';
     setResult(box, 'good');
   }
-
-  document.querySelectorAll('.unit-switch button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      wantUnit = b.dataset.unit;
-      store.set('mc-unit', wantUnit);
-      applyUnit();
-      calcPrice();
-    });
-  });
 
   /* ---------- แท็บ ---------- */
   var tabs = { profit: $('tab-profit'), price: $('tab-price') };
@@ -403,7 +352,6 @@
     });
   });
 
-  applyUnit();
   showTab(store.get('mc-tab') === 'price' ? 'price' : 'profit');
 })();
 </script>
